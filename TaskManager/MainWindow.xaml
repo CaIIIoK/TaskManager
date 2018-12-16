@@ -1,0 +1,56 @@
+﻿<Window x:Class="TaskManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TaskManager"
+        mc:Ignorable="d"
+        Title="Task Manager" Height="550" Width="700"
+        Closing="Window_Closing" ResizeMode="CanMinimize" 
+        Icon="./Resources/TaskManager.png" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ContextMenu x:Key="itemMenu">
+            <MenuItem Header="_Edit" Click="EditMenu_Click">
+                <MenuItem.Icon>
+                    <Image Source="./Resources/Edit.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="_Mark as done" Click="MarkAsDone">
+                <MenuItem.Icon>
+                    <Image Source="./Resources/Complete.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <TextBlock></TextBlock>
+            <MenuItem Header="_Delete" Click="Delete_Click">
+                <MenuItem.Icon>
+                    <Image Source="./Resources/DeleteTableRow.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <ListView Name="lvToDo" VerticalAlignment="Stretch"  Grid.Row="0" Grid.ColumnSpan="3"
+                  MouseDoubleClick="lvToDo_MouseDoubleClick" ContextMenu="{StaticResource itemMenu}" 
+                  ItemsSource="{Binding Path=Items}">
+        </ListView>
+        <Label Content="Task Description" Grid.Row="1" HorizontalAlignment="Left" 
+               Grid.Column="0" Name="label1" VerticalAlignment="Center"  />
+        <TextBox Name="txtItemDesc" Grid.Row="1" Grid.Column="1" MaxLength="150" Margin="0,0,166,0"/>
+        <Button Content="Add Task" Grid.Row="1" HorizontalAlignment="right" 
+                Grid.Column="1" Name="btnAdd" Click="AddButton_Click" Grid.ColumnSpan="2" Width="166"/>
+        <CheckBox x:Name="chkShowDone"  Grid.ColumnSpan="2" 
+                  Grid.Row="2" Content="Show completed tasks" 
+                  IsChecked="{Binding Path=ShowDoneItems, Mode=TwoWay}" 
+                  Margin="0,0,42,0"/>
+    </Grid>
+</Window>
